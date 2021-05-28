@@ -1,0 +1,132 @@
+const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
+const ctx2 = canvas2.getContext('2d');
+import { Character } from './character';
+import { Floor, Tile } from '../mapEl/tiles';
+import { Hero } from './hero';
+import { Boss } from './boss';
+import { Level } from '../gameEl/level';
+const messages: HTMLElement = document.getElementById('messages');
+
+export class Monster extends Character {
+  constructor(level: number, stage: Level, x: number, y: number, d6: number, hasKey?: boolean) {
+    super();
+    //stats
+    this._name = 'skeleton';
+    this._d6 = d6;
+    this._level = this.setLevel(level);
+    this._hp = 3 * this.level * d6;
+    this._dp = this.level * d6;
+    this._sp = this.level * d6;
+    this._hasKey = hasKey;
+    this._isAlive = true;
+    //location and visual
+    this._x = x;
+    this._y = y;
+    this._stage = stage;
+    this._map = this._stage.map;
+    this.location = this.map.getTile(this.x, this.y);
+    this.location.addChar(this);
+    this.image = document.getElementById('skeleton') as HTMLImageElement;
+  }
+
+  strike(hero: Hero, d6: number): void {
+    if (this.sp + 2 * d6 > hero.dp) {
+      hero.takeDamage(this.sp + 2 * d6 - hero.dp);
+    }
+  }
+
+  attack(hero: Hero, d6: number): boolean {
+    if (this._sp + 2 * d6 === hero.dp && hero.sp + 2 * d6 === this.dp) {
+      return false;
+    }
+    while (this.hp > 0 && hero.hp > 0) {
+      this.strike(hero, d6);
+      hero.strike(this, d6);
+    }
+    if (!hero.isAlive) {
+      messages.innerHTML += '&nbsp&nbspYou have been defeated' + '<br />';
+      hero.refreshStats();
+      return false;
+    }
+    if (!this.isAlive) {
+      if (this instanceof Boss) {
+        hero.killBoss();
+      }
+      if (this.hasKey) {
+        hero.obtainKey();
+        messages.innerHTML += '&nbsp&nbspYou obtained the key!' + '<br />';
+      }
+      hero.levelUp();
+      messages.innerHTML += `&nbsp&nbspYou defeated the ${this.name} and leveled up!` + '<br />';
+      hero.refreshStats();
+    }
+    this._stage.finishLevel();
+    return true;
+  }
+
+  chooseNewTile(): number[] {
+    let nextTile: number[] = [0, 0];
+    const options: number[][] = [
+      [0, 1],
+      [1, 0],
+      [0, -1],
+      [-1, 0],
+    ];
+    let breakPointArr: number[] = [];
+    while (true) {
+      let random: number = Math.round(Math.random() * (options.length - 1));
+      let tryTile: Tile = this.map.getTile(this.x + options[random][0], this.y + options[random][1]);
+      if (tryTile instanceof Floor && !tryTile.chars.some((char) => char instanceof Monster)) {
+        nextTile = [options[random][0], options[random][1]];
+        break;
+      }
+      if (!breakPointArr.includes(random)) {
+        breakPointArr.push(random);
+      }
+      if (breakPointArr.length >= 4) {
+        break;
+      }
+      nextTile = [0, 0];
+    }
+    return nextTile;
+  }
+
+  move(): void {
+    const nextTileCoord: number[] = this.chooseNewTile();
+    let nextTile: Tile = this.map.getTile(this.x + nextTileCoord[0], this.y + nextTileCoord[1]);
+    if (nextTile !== this.location) {
+      this.location.rmChar(this);
+      ctx2.clearRect(this.location.x, this.location.y, 70, 70);
+      this.location.reset();
+      this._x += nextTileCoord[0];
+      this._y += nextTileCoord[1];
+      if (this.map.getTile(this.x, this.y).chars.length !== 0) {
+        let hero: Hero = this.map.getTile(this.x, this.y).chars[0] as Hero;
+        hero.drawFightBox(this);
+      }
+      this.location = nextTile;
+      this.location.addChar(this);
+      this.draw();
+    }
+  }
+
+  setLevel(level: number): number {
+    let randomInt: number = Math.round(Math.random() * 9 + 1);
+    if (randomInt <= 5) {
+      return level;
+    }
+    if (randomInt <= 9) {
+      return level + 1;
+    }
+    return level + 2;
+  }
+  die(): void {
+    this.location.rmChar(this);
+    ctx2.clearRect(this.location.x, this.location.y, 70, 70);
+    this.location.reset();
+    this._x = 0;
+    this._y = 0;
+    this.location = this.map.getTile(this.x, this.y);
+    this._isAlive = false;
+  }
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Wanderer Game</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <!-- <link rel="stylesheet" href="./styles.css" /> -->
+    <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+    <style>
+      body {
+        background-image: url(./img/parchment.jpg);
+        background-color: #383131;
+        margin: 0;
+        padding: 0;
+        font-family: 'MedievalSharp', regular;
+        font-style: normal;
+      }
+
+      .container {
+        margin-top: 10px;
+        display: flex;
+        width: 100%;
+        height: 100%;
+      }
+
+      .message-box {
+        margin-top: 5px;
+        margin-left: 100px;
+        border-width: 2px;
+        border-color: black;
+        border-style: solid;
+        border-radius: 25px;
+        width: 400px;
+        height: 560px;
+        background-image: url(img/parchment.jpg);
+        background-position: center;
+        background-color: #fbd968;
+      }
+
+      #messages {
+        padding-right: 5px;
+        overflow-y: scroll;
+        height: 200px;
+        font-size: medium;
+        font-weight: 300;
+      }
+
+      .button-box {
+        background-image: url(img/moss.jpg);
+        height: 100px;
+        border-top-width: 2px;
+        border-color: black;
+        border-top-style: solid;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+      }
+
+      .button-holder {
+        background-image: url(img/button-wall.jpg);
+        background-size: cover;
+        border-radius: 25px;
+        background-color: #fbd968;
+        width: 150px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      #continue {
+        font-family: 'MedievalSharp', regular;
+        font-size: medium;
+        border-radius: 25px;
+        background-color: #383131;
+        color: #fbd968;
+        width: 150px;
+        height: 60px;
+        outline: none;
+      }
+
+      #restart {
+        font-family: 'MedievalSharp', regular;
+        font-size: medium;
+        border-radius: 25px;
+        background-color: #383131;
+        color: #fbd968;
+        width: 150px;
+        height: 60px;
+        outline: none;
+      }
+
+      .continue-invisible {
+        display: none;
+        pointer-events: none;
+      }
+
+      .restart-invisible {
+        display: none;
+        pointer-events: none;
+      }
+
+      #messages::-webkit-scrollbar {
+        width: 10px;
+        border-radius: 25px;
+        background-color: #e2c8ad;
+      }
+
+      #messages::-webkit-scrollbar-thumb {
+        width: 10px;
+        border-radius: 25px;
+        background-color: #e2c8ad;
+      }
+
+      .chronicle {
+        text-align: center;
+      }
+
+      .fight-box {
+        text-align: center;
+        height: 182px;
+        border-top-width: 2px;
+        border-color: black;
+        border-top-style: solid;
+        font-size: larger;
+        font-weight: 200;
+        color: maroon;
+      }
+
+      canvas {
+        position: absolute;
+      }
+
+      .canvas-holder {
+        position: relative;
+        width: 840px;
+        height: 560px;
+      }
+
+      .main-canvas {
+        border: 1px solid black;
+      }
+
+      .upper-layer {
+        border: 1px solid black;
+      }
+
+      .stats {
+        height: 55px;
+        width: 500px;
+        margin-left: 400px;
+        margin-top: 10px;
+        border-width: 1px;
+        border-color: black;
+        border-radius: 25px;
+        border-style: solid;
+        background-color: #fbd968;
+        text-align: center;
+        color: darkred;
+      }
+
+      .preload-images {
+        overflow: hidden;
+        height: 0;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="preload-images">
+      <img id="floor" src="img/floor.png" />
+      <img id="wall" src="img/wall.png" />
+      <img id="lava" src="img/lava.png" />
+      <img id="hero-up" src="img/hero-up.png" />
+      <img id="hero-right" src="img/hero-right.png" />
+      <img id="hero-down" src="img/hero-down.png" />
+      <img id="hero-left" src="img/hero-left.png" />
+      <img id="skeleton" src="img/skeleton.png" />
+      <img id="boss" src="img/boss.png" />
+    </div>
+    <div class="container">
+      <div class="canvas-holder">
+        <canvas width="840" height="560" class="main-canvas"></canvas>
+        <canvas width="840" height="560" class="upper-layer"></canvas>
+      </div>
+      <div class="message-box">
+        <div class="chronicle">
+          <h2>Chronicle</h2>
+        </div>
+        <div id="messages"></div>
+        <div class="button-box">
+          <div class="button-holder">
+            <button id="continue" class="continue-invisible">Continue</button>
+          </div>
+          <div class="button-holder">
+            <button id="restart" class="restart-invisible">Restart</button>
+          </div>
+        </div>
+        <div class="fight-box">
+          <div>
+            <h3>Information about opponent</h3>
+          </div>
+          <div class="fight-info"></div>
+        </div>
+      </div>
+    </div>
+    <div class="stats"></div>
+  </body>
+</html>
