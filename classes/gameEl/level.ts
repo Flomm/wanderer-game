@@ -3,18 +3,19 @@ const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 
 const ctx = canvas.getContext('2d');
 const ctx2 = canvas2.getContext('2d');
-import { Tilemap } from '../mapEl/map';
-import { Tile, Floor } from '../mapEl/tiles';
-import { Hero } from '../char/hero';
-import { Monster } from '../char/monster';
-import { Boss } from '../char/boss';
-import { d6 } from '../../functions/d6';
-import { CanSaveHero } from '../../interfaces/canSaveInterface';
+import Tilemap from '../mapEl/map';
+import Tile from '../mapEl/tiles';
+import Floor from '../mapEl/floor';
+import Hero from '../char/hero';
+import Monster from '../char/monster';
+import Boss from '../char/boss';
+import d6 from '../../functions/d6';
+import CanSaveHero from '../../interfaces/canSaveInterface';
 const messages: HTMLElement = document.getElementById('messages');
 const continueButton: HTMLElement = document.getElementById('continue');
 const restartButton: HTMLElement = document.getElementById('restart');
 
-export class Level implements CanSaveHero {
+export default class Level implements CanSaveHero {
   protected _d6: number;
   protected _nr: number;
   protected _map: Tilemap;

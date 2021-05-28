@@ -1,5 +1,5 @@
-import { Game } from '../classes/gameEl/game';
-import { Monster } from '../classes/char/monster';
+import Game from '../classes/gameEl/game';
+import Monster from '../classes/char/monster';
 const fightBox: HTMLElement = document.querySelector('.fight-info');
 const messages: HTMLElement = document.getElementById('messages');
 
@@ -10,7 +10,7 @@ function moveMons(game: Game): void {
   }
 }
 
-export function onKeyUp(event: KeyboardEvent, game: Game): void {
+export default function onKeyUp(event: KeyboardEvent, game: Game): void {
   try {
     if (game.actualLevel.isOn) {
       switch (event.code) {

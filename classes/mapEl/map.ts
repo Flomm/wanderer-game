@@ -1,7 +1,7 @@
-import { Drawable } from '../../interfaces/drawInterface';
-import { Tile } from './tiles';
+import Drawable from '../../interfaces/drawInterface';
+import Tile from './tiles';
 
-export class Tilemap implements Drawable {
+export default class Tilemap implements Drawable {
   columns: number;
   rows: number;
   tiles: Tile[][];

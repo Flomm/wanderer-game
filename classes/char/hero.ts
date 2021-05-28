@@ -1,14 +1,14 @@
-import { Character } from './character';
-import { Lava } from '../mapEl/tiles';
-import { Monster } from './monster';
-import { Boss } from './boss';
-import { Level } from '../gameEl/level';
+import Character from './character';
+import Lava from '../mapEl/lava';
+import Monster from './monster';
+import Boss from './boss';
+import Level from '../gameEl/level';
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
 const messages: HTMLElement = document.getElementById('messages');
 const fightBox: HTMLElement = document.querySelector('.fight-info');
 
-export class Hero extends Character {
+export default class Hero extends Character {
   protected basicHealth: number;
   protected basicSP: number;
   protected basicDP: number;

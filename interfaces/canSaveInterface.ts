@@ -1,3 +1,3 @@
-export interface CanSaveHero {
+export default interface CanSaveHero {
   saveHero(): void;
 }

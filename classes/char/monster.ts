@@ -1,13 +1,14 @@
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
-import { Character } from './character';
-import { Floor, Tile } from '../mapEl/tiles';
-import { Hero } from './hero';
-import { Boss } from './boss';
-import { Level } from '../gameEl/level';
+import Character from './character';
+import Tile from '../mapEl/tiles';
+import Floor from '../mapEl/floor';
+import Hero from './hero';
+import Boss from './boss';
+import Level from '../gameEl/level';
 const messages: HTMLElement = document.getElementById('messages');
 
-export class Monster extends Character {
+export default class Monster extends Character {
   constructor(level: number, stage: Level, x: number, y: number, d6: number, hasKey?: boolean) {
     super();
     //stats

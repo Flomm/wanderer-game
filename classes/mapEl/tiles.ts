@@ -1,10 +1,10 @@
-import { Character } from '../char/character';
-import { Drawable } from '../../interfaces/drawInterface';
+import Character from '../char/character';
+import Drawable from '../../interfaces/drawInterface';
 
 const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');
 
-export abstract class Tile implements Drawable {
+export default abstract class Tile implements Drawable {
   protected _size: number;
   protected image: HTMLImageElement;
   protected _x: number;
@@ -59,29 +59,5 @@ export abstract class Tile implements Drawable {
 
   draw(x: number, y: number) {
     ctx.drawImage(this.image, x, y);
-  }
-}
-
-export class Floor extends Tile {
-  constructor() {
-    super();
-    this._walkable = true;
-    this.image = document.getElementById('floor') as HTMLImageElement;
-  }
-}
-
-export class Wall extends Tile {
-  constructor() {
-    super();
-    this._walkable = false;
-    this.image = document.getElementById('wall') as HTMLImageElement;
-  }
-}
-
-export class Lava extends Tile {
-  constructor() {
-    super();
-    this._walkable = true;
-    this.image = document.getElementById('lava') as HTMLImageElement;
   }
 }

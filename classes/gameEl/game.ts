@@ -1,12 +1,12 @@
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
-import { Tilemap } from '../mapEl/map';
-import { d6 } from '../../functions/d6';
-import { Hero } from '../char/hero';
-import { Level } from './level';
-import { CanSaveHero } from '../../interfaces/canSaveInterface';
+import Tilemap from '../mapEl/map';
+import d6 from '../../functions/d6';
+import Hero from '../char/hero';
+import Level from './level';
+import CanSaveHero from '../../interfaces/canSaveInterface';
 
-export class Game implements CanSaveHero {
+export default class Game implements CanSaveHero {
   mapList: Tilemap[];
   levelList: Level[];
   actualLevel: Level;
