@@ -1,4 +1,4 @@
-import Game from '../classes/gameEl/game';
+import Game from '../../classes/gameEl/game';
 import Monster from '../classes/char/monster';
 const fightBox: HTMLElement = document.querySelector('.fight-info');
 const messages: HTMLElement = document.getElementById('messages');

@@ -1,14 +1,13 @@
-import { mapList } from '../tilemaps/tileMaps';
+import { mapList } from './tilemaps/tileMaps';
 import Game from '../classes/gameEl/game';
-import onKeyUp from '../functions/keyBoardEvent';
-import newLevel from '../functions/newLevel';
-import restartLevel from '../functions/restartFunction';
+import onKeyUp from './functions/keyBoardEvent';
+import newLevel from './functions/newLevel';
+import restartLevel from './functions/restartFunction';
 
 const continueButton: HTMLElement = document.getElementById('continue');
 const restartButton: HTMLElement = document.getElementById('restart');
 
 const theGame: Game = new Game(mapList);
-
 window.onload = () => {
   theGame.startGame();
 };
