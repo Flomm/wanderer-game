@@ -4,7 +4,7 @@
 
 A single player, frontend, tile-based game.
 The whole project is written in typescript.
-For original idea and assets credit goes to: **Greenfox Academy**
+For original idea and assets credit goes to: **Greenfox Academy** - https://www.greenfoxacademy.com/
 
 Try out at: https://wanderer-bf.netlify.app/
 
