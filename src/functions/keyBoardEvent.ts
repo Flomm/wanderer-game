@@ -1,7 +1,7 @@
 import Game from '../classes/gameEl/Game';
 import Monster from '../classes/char/Monster';
+import addMessage from './addMessage';
 const fightBox: HTMLElement = document.querySelector('.fight-info');
-const messages: HTMLElement = document.getElementById('messages');
 
 function moveMons(game: Game): void {
   if (game.hero.stepCount === 2) {
@@ -42,6 +42,6 @@ export default function onKeyUp(event: KeyboardEvent, game: Game): void {
       }
     }
   } catch (err) {
-    messages.innerHTML += '&nbsp&nbspThere is nobody to fight with here.' + '<br />';
+    addMessage('There is nobody to fight with here.');
   }
 }
