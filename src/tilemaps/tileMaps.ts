@@ -1318,8 +1318,8 @@ export const map9: Tile[][] = [
     new Wall(),
   ],
   [
-    new Floor(),
     new Wall(),
+    new Floor(),
     new Wall(),
     new Wall(),
     new Wall(),
