@@ -97,6 +97,11 @@ button:active {
   background-color: #e2c8ad;
 }
 
+#messages {
+  scrollbar-width: 10px;
+  scrollbar-color: #e2c8ad #63584c;
+}
+
 .chronicle {
   text-align: center;
 }
