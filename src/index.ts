@@ -1,6 +1,6 @@
 import './styles.css';
 import { mapList } from './tilemaps/tileMaps';
-import Game from './classes/gameEl/game';
+import Game from './classes/gameEl/Game';
 import onKeyUp from './functions/keyBoardEvent';
 import newLevel from './functions/newLevel';
 import restartLevel from './functions/restartFunction';

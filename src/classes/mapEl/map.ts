@@ -1,5 +1,5 @@
-import Drawable from '../../interfaces/drawInterface';
-import Tile from './tiles';
+import Drawable from '../../interfaces/Drawable';
+import Tile from './Tile';
 
 export default class Tilemap implements Drawable {
   columns: number;

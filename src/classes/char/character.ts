@@ -1,10 +1,10 @@
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
 
-import Tilemap from '../mapEl/map';
-import Tile from '../mapEl/tiles';
-import Level from '../gameEl/level';
-import Drawable from '../../interfaces/drawInterface';
+import Tilemap from '../mapEl/Map';
+import Tile from '../mapEl/Tile';
+import Level from '../gameEl/Level';
+import Drawable from '../../interfaces/Drawable';
 
 export default abstract class Character implements Drawable {
   protected _name: string;

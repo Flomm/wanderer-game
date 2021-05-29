@@ -1,4 +1,4 @@
-import Tile from './tiles';
+import Tile from './Tile';
 
 export default class Lava extends Tile {
   constructor() {

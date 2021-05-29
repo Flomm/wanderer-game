@@ -1,8 +1,8 @@
-import Character from './character';
-import Lava from '../mapEl/lava';
-import Monster from './monster';
-import Boss from './boss';
-import Level from '../gameEl/level';
+import Character from './Character';
+import Lava from '../mapEl/Lava';
+import Monster from './Monster';
+import Boss from './Boss';
+import Level from '../gameEl/Level';
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
 const messages: HTMLElement = document.getElementById('messages');

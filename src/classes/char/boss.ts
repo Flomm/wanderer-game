@@ -1,5 +1,5 @@
-import Level from '../gameEl/level';
-import Monster from './monster';
+import Level from '../gameEl/Level';
+import Monster from './Monster';
 
 export default class Boss extends Monster {
   constructor(level: number, stage: Level, x: number, y: number, d6: number) {

@@ -1,10 +1,10 @@
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
-import Tilemap from '../mapEl/map';
+import Tilemap from '../mapEl/Map';
 import d6 from '../../functions/d6';
-import Hero from '../char/hero';
-import Level from './level';
-import CanSaveHero from '../../interfaces/canSaveInterface';
+import Hero from '../char/Hero';
+import Level from './Level';
+import CanSaveHero from '../../interfaces/CanSaveInterface';
 
 export default class Game implements CanSaveHero {
   mapList: Tilemap[];
@@ -34,7 +34,7 @@ export default class Game implements CanSaveHero {
   generateLevelList(): Level[] {
     let levels: Level[] = [];
     for (let i: number = 0; i <= this.mapList.length - 1; i++) {
-      let newLevel: Level = new Level(this.mapList[i], i + 1, d6());
+      const newLevel: Level = new Level(this.mapList[i], i + 1, d6());
       levels.push(newLevel);
     }
     return levels;

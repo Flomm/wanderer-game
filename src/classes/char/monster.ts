@@ -1,11 +1,11 @@
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
-import Character from './character';
-import Tile from '../mapEl/tiles';
-import Floor from '../mapEl/floor';
-import Hero from './hero';
-import Boss from './boss';
-import Level from '../gameEl/level';
+import Character from './Character';
+import Tile from '../mapEl/Tile';
+import Floor from '../mapEl/Floor';
+import Hero from './Hero';
+import Boss from './Boss';
+import Level from '../gameEl/Level';
 const messages: HTMLElement = document.getElementById('messages');
 
 export default class Monster extends Character {

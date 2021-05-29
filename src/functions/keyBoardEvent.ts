@@ -1,5 +1,5 @@
-import Game from '../classes/gameEl/game';
-import Monster from '../classes/char/monster';
+import Game from '../classes/gameEl/Game';
+import Monster from '../classes/char/Monster';
 const fightBox: HTMLElement = document.querySelector('.fight-info');
 const messages: HTMLElement = document.getElementById('messages');
 
@@ -32,7 +32,7 @@ export default function onKeyUp(event: KeyboardEvent, game: Game): void {
           break;
         case 'Space':
           if (game.hero.stepCount === 0) {
-            let monster: Monster = game.hero.map.getTile(game.hero.x, game.hero.y).chars[1] as Monster;
+            const monster: Monster = game.hero.map.getTile(game.hero.x, game.hero.y).chars[1] as Monster;
             monster.attack(game.hero, game.hero.d6);
           } else {
             game.hero.attack(game.hero.map.getTile(game.hero.x, game.hero.y).chars[0] as Monster, game.hero.d6);

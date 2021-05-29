@@ -1,5 +1,5 @@
-import Character from '../char/character';
-import Drawable from '../../interfaces/drawInterface';
+import Character from '../char/Character';
+import Drawable from '../../interfaces/Drawable';
 
 const canvas = document.querySelector('.main-canvas') as HTMLCanvasElement;
 const ctx = canvas.getContext('2d');

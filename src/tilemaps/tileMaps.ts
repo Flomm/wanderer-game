@@ -1,8 +1,8 @@
-import Tilemap from '../classes/mapEl/map';
-import Tile from '../classes/mapEl/tiles';
-import Wall from '../classes/mapEl/wall';
-import Floor from '../classes/mapEl/floor';
-import Lava from '../classes/mapEl/lava';
+import Tilemap from '../classes/mapEl/Map';
+import Tile from '../classes/mapEl/Tile';
+import Wall from '../classes/mapEl/Wall';
+import Floor from '../classes/mapEl/Floor';
+import Lava from '../classes/mapEl/Lava';
 
 export const map1: Tile[][] = [
   [

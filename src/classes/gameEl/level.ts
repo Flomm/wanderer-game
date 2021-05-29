@@ -3,14 +3,14 @@ const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 
 const ctx = canvas.getContext('2d');
 const ctx2 = canvas2.getContext('2d');
-import Tilemap from '../mapEl/map';
-import Tile from '../mapEl/tiles';
-import Floor from '../mapEl/floor';
-import Hero from '../char/hero';
-import Monster from '../char/monster';
-import Boss from '../char/boss';
+import Tilemap from '../mapEl/Map';
+import Tile from '../mapEl/Tile';
+import Floor from '../mapEl/Floor';
+import Hero from '../char/Hero';
+import Monster from '../char/Monster';
+import Boss from '../char/Boss';
 import d6 from '../../functions/d6';
-import CanSaveHero from '../../interfaces/canSaveInterface';
+import CanSaveHero from '../../interfaces/CanSaveInterface';
 const messages: HTMLElement = document.getElementById('messages');
 const continueButton: HTMLElement = document.getElementById('continue');
 const restartButton: HTMLElement = document.getElementById('restart');
@@ -77,23 +77,26 @@ export default class Level implements CanSaveHero {
     let monsters: Monster[] = [];
     const numOfMonst: number = Math.floor(Math.random() * (4 - 2) + 2);
     for (let i: number = 1; i <= numOfMonst; i++) {
-      let tile: number[] = this.findOkTile();
+      const tile: number[] = this.findOkTile();
       if (i === 1) {
-        let newMonster = new Monster(this.nr, this, tile[0], tile[1], this.d6, true);
+        const newMonster = new Monster(this.nr, this, tile[0], tile[1], this.d6, true);
         monsters.push(newMonster);
       } else {
-        let newMonster = new Monster(this.nr, this, tile[0], tile[1], this.d6, false);
+        const newMonster = new Monster(this.nr, this, tile[0], tile[1], this.d6, false);
         monsters.push(newMonster);
       }
     }
-    let tile: number[] = this.findOkTile();
-    let boss = new Boss(this.nr, this, tile[0], tile[1], this.d6);
+    const tile: number[] = this.findOkTile();
+    const boss = new Boss(this.nr, this, tile[0], tile[1], this.d6);
     monsters.push(boss);
     return monsters;
   }
 
   buildMap(): void {
-    messages.innerHTML += `&nbsp&nbspLevel ${this._nr} has started` + '<br />';
+    const newP: HTMLParagraphElement = document.createElement('p');
+    newP.textContent = `Level ${this._nr} has started`;
+    messages.classList.add('msg');
+    messages.appendChild(newP);
     this.map.draw();
     this.monsters = this.generateMonsters();
     this.hero.draw();
@@ -120,29 +123,28 @@ export default class Level implements CanSaveHero {
     this.monsters = [];
   }
 
+  resetCanvas(color: string): void {
+    ctx2.clearRect(0, 0, 840, 560);
+    ctx.fillStyle = color;
+    ctx.fillRect(0, 0, 840, 560);
+    ctx2.font = '20px MedievalSharp';
+    ctx2.fillStyle = '#fbd968';
+    ctx2.textAlign = 'center';
+  }
+
   finishLevel() {
-    let numOfLevels: number = 10;
+    const numOfLevels: number = 10;
     if (this.hero.hasKey && this.hero.killedBoss) {
       this._isOn = false;
       if (this._nr === numOfLevels) {
-        ctx2.clearRect(0, 0, 840, 560);
-        ctx.fillStyle = 'darkgreen';
-        ctx.fillRect(0, 0, 840, 560);
-        ctx2.font = '20px MedievalSharp';
-        ctx2.fillStyle = '#fbd968';
-        ctx2.textAlign = 'center';
+        this.resetCanvas('darkgreen');
         ctx2.fillText(
           `You have completed all levels and won the game! Congratulations!`,
           canvas.width / 2,
           canvas.height / 2
         );
       } else {
-        ctx2.clearRect(0, 0, 840, 560);
-        ctx.fillStyle = 'maroon';
-        ctx.fillRect(0, 0, 840, 560);
-        ctx2.font = '20px MedievalSharp';
-        ctx2.fillStyle = '#fbd968';
-        ctx2.textAlign = 'center';
+        this.resetCanvas('maroon');
         ctx2.fillText(
           `You have completed level ${this._nr}! Press the 'Continue' button to move on to the next level!`,
           canvas.width / 2,
@@ -160,12 +162,7 @@ export default class Level implements CanSaveHero {
   heroDies() {
     this._hero.resetStepCount();
     this._isOn = false;
-    ctx2.clearRect(0, 0, 840, 560);
-    ctx.fillStyle = 'maroon';
-    ctx.fillRect(0, 0, 840, 560);
-    ctx2.font = '20px MedievalSharp';
-    ctx2.fillStyle = '#fbd968';
-    ctx2.textAlign = 'center';
+    this.resetCanvas('maroon');
     ctx2.fillText(
       `You have been defeated! Press the 'Restart' button to try again on this level!`,
       canvas.width / 2,
