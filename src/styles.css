@@ -1,10 +1,13 @@
 body {
   background-image: url(img/parchment.jpg);
   background-color: #383131;
+  min-height: 100vh;
   margin: 0;
   padding: 0;
   font-family: 'MedievalSharp', regular;
-  font-style: normal;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .container {
@@ -15,11 +18,8 @@ body {
 }
 
 .message-box {
-  margin-top: 5px;
-  margin-left: 100px;
-  border-width: 2px;
-  border-color: black;
-  border-style: solid;
+  margin: 5px 0px 0px 100px;
+  border: 2px solid black;
   border-radius: 25px;
   width: 400px;
   height: 560px;
@@ -59,7 +59,7 @@ body {
   justify-content: center;
 }
 
-#continue {
+button {
   font-family: 'MedievalSharp', regular;
   font-size: medium;
   border-radius: 25px;
@@ -68,25 +68,19 @@ body {
   width: 150px;
   height: 60px;
   outline: none;
+  cursor: pointer;
 }
 
-#restart {
-  font-family: 'MedievalSharp', regular;
-  font-size: medium;
-  border-radius: 25px;
-  background-color: #383131;
-  color: #fbd968;
-  width: 150px;
-  height: 60px;
-  outline: none;
+button:hover {
+  color: #383131;
+  background-color: #fbd968;
 }
 
-.continue-invisible {
-  display: none;
-  pointer-events: none;
+button:active {
+  filter: brightness(150%);
 }
 
-.restart-invisible {
+.invisible {
   display: none;
   pointer-events: none;
 }
@@ -128,10 +122,7 @@ canvas {
   height: 560px;
 }
 
-.main-canvas {
-  border: 1px solid black;
-}
-
+.main-canvas,
 .upper-layer {
   border: 1px solid black;
 }
@@ -139,18 +130,22 @@ canvas {
 .stats {
   height: 55px;
   width: 500px;
-  margin-left: 400px;
-  margin-top: 10px;
-  border-width: 1px;
-  border-color: black;
+  margin: 10px 0px 0px 400px;
+  border: 1px solid black;
   border-radius: 25px;
-  border-style: solid;
   background-color: #fbd968;
   text-align: center;
   color: darkred;
 }
 
-.preload-images {
-  overflow: hidden;
-  height: 0;
+.msg {
+  padding-left: 10px;
+}
+
+.msg--good {
+  color: darkgreen;
+}
+
+.msg--bad {
+  color: maroon;
 }
