@@ -45,7 +45,10 @@ export default class Monster extends Character {
       hero.strike(this, d6);
     }
     if (!hero.isAlive) {
-      messages.innerHTML += '&nbsp&nbspYou have been defeated' + '<br />';
+      const newDefeatP: HTMLParagraphElement = document.createElement('p');
+      newDefeatP.textContent = 'You have been defeated';
+      newDefeatP.classList.add('msg--bad');
+      messages.appendChild(newDefeatP);
       hero.refreshStats();
       return false;
     }
@@ -55,10 +58,16 @@ export default class Monster extends Character {
       }
       if (this.hasKey) {
         hero.obtainKey();
-        messages.innerHTML += '&nbsp&nbspYou obtained the key!' + '<br />';
+        const newKeyP: HTMLParagraphElement = document.createElement('p');
+        newKeyP.textContent = 'You obtained the key';
+        newKeyP.classList.add('msg--good');
+        messages.appendChild(newKeyP);
       }
       hero.levelUp();
-      messages.innerHTML += `&nbsp&nbspYou defeated the ${this.name} and leveled up!` + '<br />';
+      const newLevelUpP: HTMLParagraphElement = document.createElement('p');
+      newLevelUpP.textContent = `You defeated the ${this.name} and leveled up!`;
+      newLevelUpP.classList.add('msg--good');
+      messages.appendChild(newLevelUpP);
       hero.refreshStats();
     }
     this._stage.finishLevel();
@@ -75,8 +84,8 @@ export default class Monster extends Character {
     ];
     let breakPointArr: number[] = [];
     while (true) {
-      let random: number = Math.round(Math.random() * (options.length - 1));
-      let tryTile: Tile = this.map.getTile(this.x + options[random][0], this.y + options[random][1]);
+      const random: number = Math.round(Math.random() * (options.length - 1));
+      const tryTile: Tile = this.map.getTile(this.x + options[random][0], this.y + options[random][1]);
       if (tryTile instanceof Floor && !tryTile.chars.some((char) => char instanceof Monster)) {
         nextTile = [options[random][0], options[random][1]];
         break;
@@ -94,7 +103,7 @@ export default class Monster extends Character {
 
   move(): void {
     const nextTileCoord: number[] = this.chooseNewTile();
-    let nextTile: Tile = this.map.getTile(this.x + nextTileCoord[0], this.y + nextTileCoord[1]);
+    const nextTile: Tile = this.map.getTile(this.x + nextTileCoord[0], this.y + nextTileCoord[1]);
     if (nextTile !== this.location) {
       this.location.rmChar(this);
       ctx2.clearRect(this.location.x, this.location.y, 70, 70);
@@ -102,7 +111,7 @@ export default class Monster extends Character {
       this._x += nextTileCoord[0];
       this._y += nextTileCoord[1];
       if (this.map.getTile(this.x, this.y).chars.length !== 0) {
-        let hero: Hero = this.map.getTile(this.x, this.y).chars[0] as Hero;
+        const hero: Hero = this.map.getTile(this.x, this.y).chars[0] as Hero;
         hero.drawFightBox(this);
       }
       this.location = nextTile;
@@ -112,7 +121,7 @@ export default class Monster extends Character {
   }
 
   setLevel(level: number): number {
-    let randomInt: number = Math.round(Math.random() * 9 + 1);
+    const randomInt: number = Math.round(Math.random() * 9 + 1);
     if (randomInt <= 5) {
       return level;
     }
@@ -121,6 +130,7 @@ export default class Monster extends Character {
     }
     return level + 2;
   }
+
   die(): void {
     this.location.rmChar(this);
     ctx2.clearRect(this.location.x, this.location.y, 70, 70);
