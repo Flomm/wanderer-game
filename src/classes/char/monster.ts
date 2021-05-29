@@ -6,7 +6,7 @@ import Floor from '../mapEl/Floor';
 import Hero from './Hero';
 import Boss from './Boss';
 import Level from '../gameEl/Level';
-const messages: HTMLElement = document.getElementById('messages');
+import addMessage from '../../functions/addMessage';
 
 export default class Monster extends Character {
   constructor(level: number, stage: Level, x: number, y: number, d6: number, hasKey?: boolean) {
@@ -45,11 +45,7 @@ export default class Monster extends Character {
       hero.strike(this, d6);
     }
     if (!hero.isAlive) {
-      const newDefeatP: HTMLParagraphElement = document.createElement('p');
-      newDefeatP.textContent = 'You have been defeated';
-      newDefeatP.classList.add('msg');
-      newDefeatP.classList.add('bad');
-      messages.appendChild(newDefeatP);
+      addMessage('You have been defeated', 'bad');
       hero.refreshStats();
       return false;
     }
@@ -59,18 +55,10 @@ export default class Monster extends Character {
       }
       if (this.hasKey) {
         hero.obtainKey();
-        const newKeyP: HTMLParagraphElement = document.createElement('p');
-        newKeyP.textContent = 'You obtained the key';
-        newKeyP.classList.add('msg');
-        newKeyP.classList.add('good');
-        messages.appendChild(newKeyP);
+        addMessage('You obtained the key', 'good');
       }
       hero.levelUp();
-      const newLevelUpP: HTMLParagraphElement = document.createElement('p');
-      newLevelUpP.textContent = `You defeated the ${this.name} and leveled up!`;
-      newLevelUpP.classList.add('msg');
-      newLevelUpP.classList.add('good');
-      messages.appendChild(newLevelUpP);
+      addMessage(`You defeated the ${this.name} and leveled up!`, 'good');
       hero.refreshStats();
     }
     this._stage.finishLevel();

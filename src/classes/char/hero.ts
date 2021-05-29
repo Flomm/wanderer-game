@@ -3,9 +3,9 @@ import Lava from '../mapEl/Lava';
 import Monster from './Monster';
 import Boss from './Boss';
 import Level from '../gameEl/Level';
+import addMessage from '../../functions/addMessage';
 const canvas2 = document.querySelector('.upper-layer') as HTMLCanvasElement;
 const ctx2 = canvas2.getContext('2d');
-const messages: HTMLElement = document.getElementById('messages');
 const fightBox: HTMLElement = document.querySelector('.fight-info');
 
 export default class Hero extends Character {
@@ -95,11 +95,7 @@ export default class Hero extends Character {
         monster.strike(this, d6);
       }
       if (!this.isAlive) {
-        const newDefeatP: HTMLParagraphElement = document.createElement('p');
-        newDefeatP.textContent = 'You have been defeated!';
-        newDefeatP.classList.add('msg');
-        newDefeatP.classList.add('bad');
-        messages.appendChild(newDefeatP);
+        addMessage('You have been defeated!', 'bad');
         this.refreshStats();
         return false;
       }
@@ -109,18 +105,10 @@ export default class Hero extends Character {
         }
         if (monster.hasKey) {
           this._hasKey = true;
-          const newKeyP: HTMLParagraphElement = document.createElement('p');
-          newKeyP.textContent = 'You obtained the key!';
-          newKeyP.classList.add('msg');
-          newKeyP.classList.add('good');
-          messages.appendChild(newKeyP);
+          addMessage('You obtained the key!', 'good');
         }
         this.levelUp();
-        const newLevelUpP: HTMLParagraphElement = document.createElement('p');
-        newLevelUpP.textContent = `You defeated the ${monster.name} and leveled up!`;
-        newLevelUpP.classList.add('msg');
-        newLevelUpP.classList.add('good');
-        messages.appendChild(newLevelUpP);
+        addMessage(`You defeated the ${monster.name} and leveled up!`, 'good');
         this.refreshStats();
       }
       this._stage.finishLevel();
@@ -181,11 +169,7 @@ export default class Hero extends Character {
     if (this.map.getTile(this.x, this.y) instanceof Lava) {
       this.takeDamage(5);
       this.refreshStats();
-      const newLavaP: HTMLParagraphElement = document.createElement('p');
-      newLavaP.textContent = 'Ouch! The lava is hot!';
-      newLavaP.classList.add('msg');
-      newLavaP.classList.add('bad');
-      messages.appendChild(newLavaP);
+      addMessage('Ouch! The lava is hot!', 'bad');
     }
   }
 

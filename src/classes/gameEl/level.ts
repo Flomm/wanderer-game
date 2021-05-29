@@ -11,7 +11,7 @@ import Monster from '../char/Monster';
 import Boss from '../char/Boss';
 import d6 from '../../functions/d6';
 import CanSaveHero from '../../interfaces/CanSaveInterface';
-const messages: HTMLElement = document.getElementById('messages');
+import addMessage from '../../functions/addMessage';
 const continueButton: HTMLElement = document.getElementById('continue');
 const restartButton: HTMLElement = document.getElementById('restart');
 
@@ -93,10 +93,7 @@ export default class Level implements CanSaveHero {
   }
 
   buildMap(): void {
-    const newP: HTMLParagraphElement = document.createElement('p');
-    newP.textContent = `Level ${this._nr} has started`;
-    newP.classList.add('msg');
-    messages.appendChild(newP);
+    addMessage(`Level ${this._nr} has started`);
     this.map.draw();
     this.monsters = this.generateMonsters();
     this.hero.draw();
