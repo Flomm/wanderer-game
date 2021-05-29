@@ -32,12 +32,9 @@ export default class Game implements CanSaveHero {
   }
 
   generateLevelList(): Level[] {
-    let levels: Level[] = [];
-    for (let i: number = 0; i <= this.mapList.length - 1; i++) {
-      const newLevel: Level = new Level(this.mapList[i], i + 1, d6());
-      levels.push(newLevel);
-    }
-    return levels;
+    return this.mapList.map((map, i) => {
+      return new Level(map, i + 1, d6());
+    });
   }
 
   saveHero(): void {
