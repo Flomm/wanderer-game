@@ -95,7 +95,7 @@ export default class Level implements CanSaveHero {
   buildMap(): void {
     const newP: HTMLParagraphElement = document.createElement('p');
     newP.textContent = `Level ${this._nr} has started`;
-    messages.classList.add('msg');
+    newP.classList.add('msg');
     messages.appendChild(newP);
     this.map.draw();
     this.monsters = this.generateMonsters();

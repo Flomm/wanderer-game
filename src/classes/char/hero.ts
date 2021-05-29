@@ -60,12 +60,6 @@ export default class Hero extends Character {
   }
 
   refreshStats(): void {
-    let gotKey: string;
-    if (this.hasKey) {
-      gotKey = 'yes';
-    } else {
-      gotKey = 'no';
-    }
     this._statSheet =
       `Health points: ${this._hp}` +
       '&nbsp&nbsp&nbsp&nbsp&nbsp' +
@@ -77,8 +71,7 @@ export default class Hero extends Character {
       '<br />' +
       `Level: ${this._level}` +
       '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp' +
-      `Obtained key: ${gotKey}`;
-
+      `Obtained key: ${this.hasKey ? 'yes' : 'no'}`;
     document.querySelector('.stats').innerHTML = this._statSheet;
   }
 
@@ -102,7 +95,11 @@ export default class Hero extends Character {
         monster.strike(this, d6);
       }
       if (!this.isAlive) {
-        messages.innerHTML += '&nbsp&nbspYou have been defeated' + '<br />';
+        const newDefeatP: HTMLParagraphElement = document.createElement('p');
+        newDefeatP.textContent = 'You have been defeated!';
+        newDefeatP.classList.add('msg');
+        newDefeatP.classList.add('bad');
+        messages.appendChild(newDefeatP);
         this.refreshStats();
         return false;
       }
@@ -112,16 +109,25 @@ export default class Hero extends Character {
         }
         if (monster.hasKey) {
           this._hasKey = true;
-          messages.innerHTML += '&nbsp&nbspYou obtained the key!' + '<br />';
+          const newKeyP: HTMLParagraphElement = document.createElement('p');
+          newKeyP.textContent = 'You obtained the key!';
+          newKeyP.classList.add('msg');
+          newKeyP.classList.add('good');
+          messages.appendChild(newKeyP);
         }
         this.levelUp();
-        messages.innerHTML += `&nbsp&nbspYou defeated the ${monster.name} and leveled up!` + '<br />';
+        const newLevelUpP: HTMLParagraphElement = document.createElement('p');
+        newLevelUpP.textContent = `You defeated the ${monster.name} and leveled up!`;
+        newLevelUpP.classList.add('msg');
+        newLevelUpP.classList.add('good');
+        messages.appendChild(newLevelUpP);
         this.refreshStats();
       }
       this._stage.finishLevel();
       return true;
     }
   }
+
   levelUp() {
     this.basicHealth += this.d6;
     this.basicSP += this.d6;
@@ -175,7 +181,11 @@ export default class Hero extends Character {
     if (this.map.getTile(this.x, this.y) instanceof Lava) {
       this.takeDamage(5);
       this.refreshStats();
-      messages.innerHTML += '&nbsp&nbspOuch! The lava is hot!' + '<br />';
+      const newLavaP: HTMLParagraphElement = document.createElement('p');
+      newLavaP.textContent = 'Ouch! The lava is hot!';
+      newLavaP.classList.add('msg');
+      newLavaP.classList.add('bad');
+      messages.appendChild(newLavaP);
     }
   }
 
@@ -186,7 +196,6 @@ export default class Hero extends Character {
       `If you want to fight, press the SPACE button.` +
       '<br />' +
       `If you want to flee, move forward.`;
-
     fightBox.innerHTML = toWrite;
   }
 

@@ -47,7 +47,8 @@ export default class Monster extends Character {
     if (!hero.isAlive) {
       const newDefeatP: HTMLParagraphElement = document.createElement('p');
       newDefeatP.textContent = 'You have been defeated';
-      newDefeatP.classList.add('msg--bad');
+      newDefeatP.classList.add('msg');
+      newDefeatP.classList.add('bad');
       messages.appendChild(newDefeatP);
       hero.refreshStats();
       return false;
@@ -60,13 +61,15 @@ export default class Monster extends Character {
         hero.obtainKey();
         const newKeyP: HTMLParagraphElement = document.createElement('p');
         newKeyP.textContent = 'You obtained the key';
-        newKeyP.classList.add('msg--good');
+        newKeyP.classList.add('msg');
+        newKeyP.classList.add('good');
         messages.appendChild(newKeyP);
       }
       hero.levelUp();
       const newLevelUpP: HTMLParagraphElement = document.createElement('p');
       newLevelUpP.textContent = `You defeated the ${this.name} and leveled up!`;
-      newLevelUpP.classList.add('msg--good');
+      newLevelUpP.classList.add('msg');
+      newLevelUpP.classList.add('good');
       messages.appendChild(newLevelUpP);
       hero.refreshStats();
     }
