@@ -5,6 +5,13 @@
     <title>Wanderer Game</title>
     <link rel="preconnect" href="https://fonts.gstatic.com" />
     <link href="https://fonts.googleapis.com/css2?family=MedievalSharp&display=swap" rel="stylesheet" />
+    <style>
+      .preload-images {
+        height: 0;
+        overflow: hidden;
+        display: none;
+      }
+    </style>
   </head>
   <body>
     <div class="preload-images">
@@ -18,32 +25,34 @@
       <img id="skeleton" src="img/skeleton.png" />
       <img id="boss" src="img/boss.png" />
     </div>
-    <div class="container">
-      <div class="canvas-holder">
-        <canvas width="840" height="560" class="main-canvas"></canvas>
-        <canvas width="840" height="560" class="upper-layer"></canvas>
+    <div class="wrapper">
+      <div class="container">
+        <div class="canvas-holder">
+          <canvas width="840" height="560" class="main-canvas"></canvas>
+          <canvas width="840" height="560" class="upper-layer"></canvas>
+        </div>
+        <div class="message-box">
+          <div class="chronicle">
+            <h2>Chronicle</h2>
+          </div>
+          <div id="messages"></div>
+          <div class="button-box">
+            <div class="button-holder">
+              <button id="continue" class="invisible">Continue</button>
+            </div>
+            <div class="button-holder">
+              <button id="restart" class="invisible">Restart</button>
+            </div>
+          </div>
+          <div class="fight-box">
+            <div>
+              <h3>Information about opponent</h3>
+            </div>
+            <div class="fight-info"></div>
+          </div>
+        </div>
       </div>
-      <div class="message-box">
-        <div class="chronicle">
-          <h2>Chronicle</h2>
-        </div>
-        <div id="messages"></div>
-        <div class="button-box">
-          <div class="button-holder">
-            <button id="continue" class="continue-invisible">Continue</button>
-          </div>
-          <div class="button-holder">
-            <button id="restart" class="restart-invisible">Restart</button>
-          </div>
-        </div>
-        <div class="fight-box">
-          <div>
-            <h3>Information about opponent</h3>
-          </div>
-          <div class="fight-info"></div>
-        </div>
-      </div>
+      <div class="stats"></div>
     </div>
-    <div class="stats"></div>
   </body>
 </html>
